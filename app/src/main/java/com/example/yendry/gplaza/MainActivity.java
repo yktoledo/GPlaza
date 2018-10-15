@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setTile("Users");
         getSupportFragmentManager()
                 .beginTransaction()
+                .setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left)
                 .replace(R.id.fragment_container, HomeFragment.newInstance(), "home")
                 .addToBackStack("home")
                 .commit();
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private void openAddFragment() {
         getSupportFragmentManager()
                 .beginTransaction()
+                .setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left)
                 .replace(R.id.fragment_container, AddUserFragment.newInstance(), "add")
                 .addToBackStack("add")
                 .commit();
