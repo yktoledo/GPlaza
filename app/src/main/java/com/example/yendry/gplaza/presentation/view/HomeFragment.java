@@ -9,17 +9,20 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.example.yendry.gplaza.GPlazaApplication;
 import com.example.yendry.gplaza.R;
 import com.example.yendry.gplaza.base.BaseFragment;
 import com.example.yendry.gplaza.domain.model.User;
 import com.example.yendry.gplaza.domain.usecases.GetListUseCase;
+import com.example.yendry.gplaza.presentation.adapter.Adapter;
 import com.example.yendry.gplaza.presentation.viewmodel.HomeViewModel;
 
 import java.util.List;
@@ -31,10 +34,11 @@ import javax.inject.Inject;
  */
 public class HomeFragment extends BaseFragment {
     private static final String TAG = HomeFragment.class.getSimpleName();
-
+    RelativeLayout progress;
     HomeViewModel viewModel;
     @Inject GetListUseCase useCase;
     RecyclerView rv;
+    private Adapter adapter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -71,10 +75,15 @@ public class HomeFragment extends BaseFragment {
         }).get(HomeViewModel.class);
         viewModel.setFragment(this);
         viewModel.init();
+        showProgress(true);
     }
 
     private void init(View view) {
+        progress = view.findViewById(R.id.progress_bar);
         rv = view.findViewById(R.id.rv);
+        rv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        adapter = new Adapter();
+        rv.setAdapter(adapter);
     }
 
     @Override
@@ -85,5 +94,9 @@ public class HomeFragment extends BaseFragment {
 
     public void showList(List<User> users) {
         Log.d(TAG, "showList: ");
+        adapter.setList(users);
+    }
+    public void showProgress(boolean show){
+        progress.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 }

@@ -39,6 +39,7 @@ public class HomeViewModel extends BaseViewModel<HomeFragment> {
             @Override
             public void onComplete() {
                 Log.d(TAG, "onComplete: ");
+                fragment.showProgress(false);
             }
         }, null);
     }
