@@ -3,6 +3,8 @@ package com.example.yendry.gplaza.data.net;
 import com.example.yendry.gplaza.data.repository.Repository;
 import com.example.yendry.gplaza.domain.model.ListResponse;
 import com.example.yendry.gplaza.domain.model.User;
+import com.example.yendry.gplaza.domain.model.UserEntity;
+import com.example.yendry.gplaza.domain.model.UserEntityResponse;
 
 import java.util.List;
 
@@ -30,4 +32,11 @@ public class NetRepository implements Repository {
        });
 
     }
+
+    @Override
+    public Observable<UserEntityResponse> createUser(UserEntity user) {
+        return reqresAPI.createUser(user);
+    }
+
+
 }

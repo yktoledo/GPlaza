@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.example.yendry.gplaza.GPlazaApplication;
+import com.example.yendry.gplaza.MainActivity;
 import com.example.yendry.gplaza.R;
 import com.example.yendry.gplaza.base.BaseFragment;
 import com.example.yendry.gplaza.domain.model.User;
@@ -34,9 +35,10 @@ import javax.inject.Inject;
  */
 public class HomeFragment extends BaseFragment {
     private static final String TAG = HomeFragment.class.getSimpleName();
-    RelativeLayout progress;
+
     HomeViewModel viewModel;
-    @Inject GetListUseCase useCase;
+    @Inject
+    GetListUseCase useCase;
     RecyclerView rv;
     private Adapter adapter;
 
@@ -79,7 +81,6 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void init(View view) {
-        progress = view.findViewById(R.id.progress_bar);
         rv = view.findViewById(R.id.rv);
         rv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         adapter = new Adapter();
@@ -89,14 +90,16 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        ((GPlazaApplication)getActivity().getApplication()).getComponent().inject(this);
+        ((GPlazaApplication) getActivity().getApplication()).getComponent().inject(this);
     }
 
     public void showList(List<User> users) {
         Log.d(TAG, "showList: ");
         adapter.setList(users);
     }
-    public void showProgress(boolean show){
-        progress.setVisibility(show ? View.VISIBLE : View.GONE);
+
+
+    public void showProgress(boolean show) {
+        ((MainActivity) getActivity()).showProgress(show);
     }
 }
